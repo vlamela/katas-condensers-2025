@@ -1,0 +1,26 @@
+{
+  "name": "katas-condensers-2025",
+  "version": "1.0.0",
+  "description": "Architectural Katas Winter 2025, submission of Condensers team",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vlamela/katas-condensers-2025.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/vlamela/katas-condensers-2025#readme",
+  "packageManager": "pnpm@10.4.0+sha512.6b849d0787d97f8f4e1f03a9b8ff8f038e79e153d6f11ae539ae7c435ff9e796df6a862c991502695c7f9e8fac8aeafc1ac5a8dab47e36148d183832d886dd52",
+  "scripts": {
+    "dev": "pnpm likec4 dev",
+    "build": "pnpm likec4 build -o ./dist"
+  },
+  "devDependencies": {
+    "likec4": "^1.22.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
