@@ -38,7 +38,8 @@
      - Review and grade software architecture submissions.
 10. Of 300 software architects 5 are “designated”
     - What is their role?
-      - Add or modify certification tests based on their own analysis and feedback from other employed experts.
+      - Add or modify aptitude test questions based on their own analysis and feedback from other employed experts.
+      - Add or modify case studies based on their own analysis and feedback from other employed experts.
 
 # Actors
 
