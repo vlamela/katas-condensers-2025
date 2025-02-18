@@ -1,0 +1,81 @@
+model {
+
+    extend expertAdminUi {
+        container ui {
+            description "Expert Admin User Interface"
+        }
+    }
+
+    extend aptitudeTestMaintenanceService {
+        container aptitudeTestMaintenance {
+            description "Aptitude Test Maintenance"
+        }
+        container preprocessor {
+            description "Preprocesses aptitude test short questions answers: removes unnecessary characters, normalizes whitespace, and tokenizes into segments"
+        }
+        container tokenizer {
+            description "Converts aptitude test short questions answers into numerical tokens"
+        }
+        container generator {
+            description "Generates embeddings from tokenized short questions answers"
+        }
+        component embeddingsStore {
+            description "Stores embeddings of valid short questions answers"
+            style {
+                shape cylinder
+            }
+        }
+
+        expertAdminUi.ui -> aptitudeTestMaintenanceService.aptitudeTestMaintenance "adds, removes or modifies aptitude test short questions"
+        aptitudeTestMaintenanceService.aptitudeTestMaintenance -> aptitudeTestMaintenanceService.preprocessor "preprocesses aptitude test short questions answers" {
+            style {
+                color green
+            }
+        }
+        aptitudeTestMaintenanceService.preprocessor -> aptitudeTestMaintenanceService.tokenizer "tokenizes aptitude test short questions answers" {
+            style {
+                color green
+            }
+        }
+        aptitudeTestMaintenanceService.tokenizer -> aptitudeTestMaintenanceService.generator "generates embeddings from tokenized short questions answers" {
+            style {
+                color green
+            }
+        }
+        aptitudeTestMaintenanceService.generator -> aptitudeTestMaintenanceService.embeddingsStore "stores embeddings of valid short questions answers" {
+            style {
+                color green
+            }
+        }
+    }
+}
+
+views {
+    
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Containers - unchanged"
+    }
+    style aptitudeTestMaintenanceService.preprocessor, aptitudeTestMaintenanceService.tokenizer, aptitudeTestMaintenanceService.generator, aptitudeTestMaintenanceService.embeddingsStore {
+        notation "C4 Containers - added for AI extension"
+        color green
+    }
+
+    view aptitudeTestMaintenanceContainer of aptitudeTestMaintenanceService {
+        group "Actors" {
+            include designatedExpert
+        }
+        group "UI" {
+            include expertAdminUi._
+        }
+        group "Existing Containers" {
+            include aptitudeTestMaintenanceService.aptitudeTestMaintenance
+        }
+        group "New Containers" {
+            include aptitudeTestMaintenanceService.preprocessor
+            include aptitudeTestMaintenanceService.tokenizer
+            include aptitudeTestMaintenanceService.generator
+            include aptitudeTestMaintenanceService.embeddingsStore
+        }
+    }
+}

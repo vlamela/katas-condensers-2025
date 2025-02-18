@@ -1,0 +1,7 @@
+model {
+    extend aptitudeManualCapture {
+        container shortAnswer {
+            description "Persists short answers for manual grading"
+        }
+    }
+}

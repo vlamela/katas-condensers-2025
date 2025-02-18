@@ -13,6 +13,9 @@ specification {
     element container {
         notation "C4 Container"
     }
+    element component {
+        notation "C4 Component"
+    }
 
     // Communication styles
     relationship async {

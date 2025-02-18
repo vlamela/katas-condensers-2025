@@ -1,16 +1,36 @@
 model {
-    actor candidate
-    actor designatedExpert
-    actor expert
-    actor companyAdmin
+    actor candidate {
+        description "Candidate for certification"
+    }
+    actor designatedExpert {
+        description "Expert software architect designated to add or modify aptitude test questions or case studies"
+    }
+    actor expert {
+        description "Expert software architect designated to grade candidate submissions"
+    }
+    actor companyAdmin {
+        description "Company administrator"
+    }
 
     // Admin
-    softwareSystem companyAdminUi
-    softwareSystem expertAdminUi
-    softwareSystem userMaintenanceService
-    softwareSystem aptitudeTestMaintenanceService
-    softwareSystem caseStudyMaintenanceService
-    softwareSystem aptitudeTestAnalysisService
+    softwareSystem companyAdminUi {
+        description "Company Admin User Interface"
+    }
+    softwareSystem expertAdminUi {
+        description "Expert Admin User Interface"
+    }
+    softwareSystem userMaintenanceService {
+        description "User Maintenance Service"
+    }
+    softwareSystem aptitudeTestMaintenanceService {
+        description "Aptitude Test Maintenance Service"
+    }
+    softwareSystem caseStudyMaintenanceService {
+        description "Case Study Maintenance Service"
+    }
+    softwareSystem aptitudeTestAnalysisService {
+        description "Aptitude Test Analysis Service"
+    }
 
     companyAdmin -> companyAdminUi "manages expert software architects and their profiles"
     expert -> companyAdminUi "manages own profile"
@@ -27,13 +47,27 @@ model {
     expertAdminUi -> caseStudyMaintenanceService "manages case studies"
 
     // Aptitude Test (test 1)
-    softwareSystem candidateTestingUi
-    softwareSystem expertGradingUi
-    softwareSystem candidateRegistrationService
-    softwareSystem aptitudeTestTaker
-    softwareSystem aptitudeManualCapture
-    softwareSystem aptitudeAutoGrader
-    softwareSystem aptitudeManualGrader
+    softwareSystem candidateTestingUi {
+        description "Candidate Testing User Interface"
+    }
+    softwareSystem expertGradingUi {
+        description "Expert Grading User Interface"
+    }
+    softwareSystem candidateRegistrationService {
+        description "Candidate Registration Service"
+    }
+    softwareSystem aptitudeTestTaker {
+        description "Aptitude Test Taker"
+    }
+    softwareSystem aptitudeManualCapture {
+        description "Aptitude Manual Capture"
+    }
+    softwareSystem aptitudeAutoGrader {
+        description "Aptitude Auto Grader"
+    }
+    softwareSystem aptitudeManualGrader {
+        description "Aptitude Manual Grader"
+    }
     softwareSystem candidateStatusService
     softwareSystem candidateAptitudeNotification
 
@@ -59,7 +93,9 @@ model {
     softwareSystem certificationViewerUi
     softwareSystem caseStudyRetrievalService
     softwareSystem architectureSubmissionService
-    softwareSystem architectureManualGrader
+    softwareSystem architectureManualGrader {
+        description "Architecture Manual Grader"
+    }
     softwareSystem candidateCertificationService
     softwareSystem candidateArchitectureNotification
     softwareSystem certificationViewerService
@@ -85,7 +121,18 @@ model {
 }
 
 views {
+
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Software Systems - unchanged"
+    }
+    style aptitudeManualGrader, architectureManualGrader {
+        notation "C4 Software Systems - changed for AI extension"
+        color amber
+    }
+
     view landscape {
+
         group "Actors" {
             include element.kind == actor
         }
@@ -146,17 +193,10 @@ views {
         group "Aptitude Test" {
             include aptitudeTestTaker
         }
-        // Style to represent AI Extension candidate
-        style aptitudeManualGrader {
-            color amber
-        }
         group "Grading" {
             include aptitudeManualCapture
             include aptitudeAutoGrader
             include aptitudeManualGrader
-            with {
-                notation "C4 Software System - AI extension candidate"
-            }
         }
         group "Certification status" {
             include candidateStatusService
@@ -182,15 +222,8 @@ views {
         group "Submission" {
             include architectureSubmissionService
         }
-        // Style to represent AI Extension candidate
-        style architectureManualGrader {
-            color amber
-        }
         group "Grading" {
             include architectureManualGrader
-            with {
-                notation "C4 Software System - AI extension candidate"
-            }
         }
         group "Certification status" {
             include candidateStatusService

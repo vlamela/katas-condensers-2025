@@ -1,0 +1,72 @@
+model {
+    extend expertGradingUi {
+        container ui {
+            description "Expert Grading User Interface"
+        }
+    }
+
+    extend aptitudeManualGrader {
+        component shortAnswer
+        component gradeConsolidation
+        component promptOrchestrator {
+            description "Orchestrates the prompt generation and retrieval services"
+        }
+        component retrievalService {
+            description "Retrieves embeddings of valid answers from the vector store"
+
+        }
+        component candidateSubmissionGuardrail {
+            description "Validates submitted short answers against plagiarism and AI-generated content"
+
+        }
+        component generationService {
+            description "Generates prompts for grading of candidate provided short answers, using valid answers as context"
+
+        }
+        component embeddingsStore {
+            description "Stores embeddings of valid answers"
+            style {
+                shape cylinder
+            }
+        }
+
+        expertGradingUi.ui -> aptitudeManualGrader.shortAnswer "retrieves ungraded short answer questiions for the candidate"
+        expertGradingUi.ui -> aptitudeManualGrader.gradeConsolidation "retrieves graded short answer questions for the candidate"
+
+        aptitudeManualGrader.promptOrchestrator -> aptitudeManualCapture.shortAnswer "retrieves ungraded short answers for grading"
+
+    }
+}
+
+views {
+
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Containers - unchanged"
+    }
+    style aptitudeManualGrader.promptOrchestrator, aptitudeManualGrader.retrievalService, aptitudeManualGrader.candidateSubmissionGuardrail, aptitudeManualGrader.generationService, aptitudeManualGrader.embeddingsStore {
+        notation "C4 Containers - added for AI extension"
+        color green
+    }
+
+    view aptitudeManualGraderContainer of aptitudeManualGrader {
+        group "Actors" {
+            include expert
+        }
+        group "UI" {
+            include expertGradingUi._
+        }
+        group "Existing Containers" {
+            include aptitudeManualCapture._
+            include shortAnswer
+            include gradeConsolidation
+        }
+        group "New Containers" {
+            include promptOrchestrator
+            include retrievalService
+            include candidateSubmissionGuardrail
+            include generationService
+            include embeddingsStore
+        }
+    }
+}
