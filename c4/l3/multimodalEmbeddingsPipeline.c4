@@ -1,5 +1,5 @@
 model {
-    
+
     extend multimodalEmbeddingsPipeline {
         container orchestrator {
             description "Orchestrates the multimodal embeddings pipeline"
@@ -31,10 +31,11 @@ model {
         }
         container imageEmbeddingsGenerator {
             description "Generates embeddings from preprocessed images"
-            technology "Python, CLIPModel from Hugging Face Transformers or similar"
+            technology "Python, CLIPModel or ViTModel from Hugging Face Transformers or similar"
         }
-        component embeddingsStore {
+        container embeddingsStore {
             description "Stores embeddings of valid short questions answers"
+            technology "Weviate or Pinecone or similar"
             style {
                 shape cylinder
             }
@@ -94,20 +95,14 @@ views {
     style element.kind != actor {
         notation "C4 Containers - unchanged"
     }
-    style   multimodalEmbeddingsPipeline.orchestrator,
-            multimodalEmbeddingsPipeline.textExtractor,
-            multimodalEmbeddingsPipeline.imagesExtractor,
-            multimodalEmbeddingsPipeline.textPreprocessor,
-            multimodalEmbeddingsPipeline.imagePreprocessor,
-            multimodalEmbeddingsPipeline.textTokenizer,
-            multimodalEmbeddingsPipeline.textEmbeddingsGenerator,
-            multimodalEmbeddingsPipeline.imageEmbeddingsGenerator,
-            multimodalEmbeddingsPipeline.embeddingsStore {
+    style multimodalEmbeddingsPipeline.orchestrator, multimodalEmbeddingsPipeline.textExtractor, multimodalEmbeddingsPipeline.imagesExtractor, multimodalEmbeddingsPipeline.textPreprocessor, multimodalEmbeddingsPipeline.imagePreprocessor, multimodalEmbeddingsPipeline.textTokenizer, multimodalEmbeddingsPipeline.textEmbeddingsGenerator, multimodalEmbeddingsPipeline.imageEmbeddingsGenerator, multimodalEmbeddingsPipeline.embeddingsStore {
         notation "C4 Containers - added for AI extension"
         color green
     }
 
     view multimodalEmbeddingsPipelineContainer of multimodalEmbeddingsPipeline {
+        description "Container diagram (C4 L2) of Multimodal Embeddings Pipeline"
+
         include multimodalEmbeddingsPipeline.orchestrator
         group "Text processing" {
             include multimodalEmbeddingsPipeline.textExtractor

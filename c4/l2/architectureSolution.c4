@@ -1,0 +1,78 @@
+model {
+    softwareSystem certificationViewerUi
+
+    softwareSystem caseStudyRetrievalService
+    softwareSystem architectureSubmissionService
+    softwareSystem architectureManualGrader {
+        description "Architecture Manual Grader"
+    }
+    softwareSystem candidateCertificationService
+    softwareSystem candidateArchitectureNotification
+    softwareSystem certificationViewerService
+
+    candidate -> candidateTestingUi "retrieves case study"
+    candidateTestingUi -> caseStudyRetrievalService "retrieves case study"
+    caseStudyRetrievalService -> candidateStatusService "updates candidate' architecture solution status"
+
+    candidate -> candidateTestingUi "uploads architecture solution"
+    candidateTestingUi -> architectureSubmissionService "uploads architecture solution"
+    architectureSubmissionService -> candidateStatusService "updates candidate' architecture solution status"
+
+    expert -> expertGradingUi "grades architecture solution, provides feedback"
+    expertGradingUi -> architectureManualGrader "grades architecture solution, provides feedback"
+    architectureManualGrader -> architectureSubmissionService "gets architecture solution"
+    architectureManualGrader -> candidateStatusService "gets candidate' architecture solution status"
+    architectureManualGrader -> candidateCertificationService "generates and stores certificate"
+    architectureManualGrader -> candidateArchitectureNotification "notifies candidate of their grade for the architecture submission, provides feedback, provides instructions on how to proceed"
+
+    candidate -> certificationViewerUi "views certificate"
+    certificationViewerUi -> certificationViewerService "views certificate"
+    certificationViewerService -> candidateCertificationService "gets certificate"
+}
+
+views {
+
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Software Systems - unchanged"
+    }
+    style architectureManualGrader {
+        notation "C4 Software Systems - changed for AI extension"
+        color amber
+    }
+    style multimodalEmbeddingsPipeline {
+        notation "C4 Software Systems - added for AI extension"
+        color green
+    }
+
+    view architectureSolutionSystemContext {
+        description "System Context (C4 L1) of Architecture Solution (test 2) services"
+
+        group "Users" {
+            include candidate
+            include expert
+        }
+        group "UI" {
+            include candidateTestingUi
+            include expertGradingUi
+            include certificationViewerUi
+        }
+        group "Case Study" {
+            include caseStudyRetrievalService
+        }
+        group "Submission" {
+            include architectureSubmissionService
+        }
+        group "Grading" {
+            include architectureManualGrader
+        }
+        group "Certification status" {
+            include candidateStatusService
+            include candidateCertificationService
+            include certificationViewerService
+        }
+        group "Notification" {
+            include candidateArchitectureNotification
+        }
+    } 
+}
