@@ -26,4 +26,41 @@ model {
         }
         
     }
+
+    aptitudeTestTaker.questionSender -[async]-> ragAutoGrader.promptOrchestrator "generates prompt to grade candidate submission" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> ragAutoGrader.retrievalService "retrieves embeddings of valid answers and grading criteria" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.retrievalService -> multimodalEmbeddingsPipeline.embeddingsStore "retrieves embeddings of valid answers and grading criteria" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> ragAutoGrader.generationService "generates prompt to grade candidate submission" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> ragAutoGrader.candidateSubmissionGuardrail "validates candidate submission against plagiarism and AI-generated content" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.candidateSubmissionGuardrail -> gradingModel "asks model to grade candidate submission with generated prompt" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase "persists AI graded candidate submission" {
+        style {
+            color green
+        }
+    }
+
 }

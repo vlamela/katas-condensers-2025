@@ -27,10 +27,10 @@ views {
     style element.kind != actor {
         notation "C4 Software Systems - unchanged"
     }
-    style aptitudeManualGrader, architectureManualGrader {
-        notation "C4 Software Systems - changed for AI extension"
-        color amber
-    }
+    // style aptitudeManualGrader, architectureManualGrader {
+    //     notation "C4 Software Systems - changed for AI extension"
+    //     color amber
+    // }
     style multimodalEmbeddingsPipeline {
         notation "C4 Software Systems - added for AI extension"
         color green
@@ -78,6 +78,7 @@ views {
         }
 
         include ragAutoGrader
+        include gradingModel
     }
     
 }

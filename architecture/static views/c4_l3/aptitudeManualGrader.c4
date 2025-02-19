@@ -8,10 +8,13 @@ model {
             description "Grade Consolidation"
         }
 
-        expertGradingUi.ui -> aptitudeManualGrader.shortAnswer "retrieves ungraded short answer questions for the candidate"
-        aptitudeManualGrader.shortAnswer -> aptitudeManualCapture.shortAnswer "retrieves ungraded short answer questions for the candidate"
-        expertGradingUi.ui -> aptitudeManualGrader.gradeConsolidation "retrieves graded short answer questions for the candidate"
-        aptitudeManualGrader.gradeConsolidation -> aptitudeManualGrader.shortAnswer "retrieves graded short answer questions for the candidate"
+        expert -> expertGradingUi.ui "grades ungraded short answer questions for the candidate"
+        expertGradingUi.ui -> aptitudeManualGrader.shortAnswer "grades ungraded short answer questions for the candidate"
+        aptitudeManualGrader.shortAnswer -> aptitudeManualCapture.ungradedDatabase "retrieves ungraded short answer questions for the candidate"
+        aptitudeManualGrader.shortAnswer -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase "retrieves AI graded short answer questions for the candidate"
+        aptitudeManualGrader.shortAnswer -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase "persists graded complete test 1 submission for the candidate"
+
+        // aptitudeManualGrader.gradeConsolidation -> 
         
     }
 

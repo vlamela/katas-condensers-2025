@@ -2,25 +2,19 @@
 
 1. Process automation - company has a fear that the current manual processes of certification will not be able to handle increased load next years (see constraints below).
    - Potential improvements:
-     - (out of scope) New multiple choice and short answer questions (test 1) generation.
-     - (out of scope) Find the need to modify questions in test 1, based on candidates submissions.
+     - (out of scope for first iteration) New multiple choice and short answer questions (test 1) generation.
+     - (out of scope for first iteration) Find the need to modify questions in test 1, based on candidates submissions.
      - Manual grading of short answers (test 1)
-       - (out of scope) Short answer (test 1) validation against plagiarism/AI generation. 
+       - (out of scope for first iteration) Short answer (test 1) validation against plagiarism/AI generation. 
        - (!!!1st prio!!!) Short answer (test 1) validation for correctness
      - Removing bottleneck of designated expert software architects (5 of 300)
-       - (out of scope) New case studies (test 2) generation, based on number of input parameters (architecture style, type of communications, technical context etc)
+       - (out of scope for first iteration) New case studies (test 2) generation, based on number of input parameters (architecture style, type of communications, technical context etc)
      - Manual grading of case study submission (test 2)
-       - (out of scope) Case study submission (test 2) validation against plagiarism/AI generation.
+       - (out of scope for first iteration) Case study submission (test 2) validation against plagiarism/AI generation.
        - (!!!1st prio!!!) Case study submission (test 2) validation for correctness.
-       - (!!!1st prio!!!) Detailed reasoning email generation (test 2).
+       - (out of scope for first iteration) Detailed reasoning email generation (test 2).
 
 2. Accuracy in both company provided data (multiple choices questions in test 1, case studies in test 2) and candidate submissions grading (short answers in test 1, architectural solution in test 2) is crucial.
-
-# Target metrics
-
-1. (process time) Currently, average time it takes to manually grade each test is 8 hrs (3 hrs + 8 hrs). Final duration of automated grading of test 1 and test 2 should be faster by 1110% (900% to represent 10x times increase in number of weekly candidates, plus 21%), e.g it should not exceed 5 minutes.
-2. (accuracy - proposal) 99% of automatically checked submissions should not be challenged by candidates.
-3. (cost) Currently, average cost of manual grading test 1 and test 2 for one candidate is 550$ (50$ per hr * (3 hrs + 8 hrs)). Final cost of automated grading of test 1 and test 2 should not exceed that number.
 
 # Constraints
 
@@ -64,10 +58,13 @@
 
 # ADRs
 
-1. TBD
+1. ![Validation for Correctness, common](./architecture/adr/1_validation_for_correctness_common.md)
+2. ![Validation for Correctness, embedding models](./architecture/adr/1_validation_for_correctness_embedding_model.md)
+3. ![Accuracy of candidate submission](./architecture/adr/2_accuracy_candidate_submission.md)
+4. ![Accuracy of commpany provided data](./architecture/adr/2_accuracy_company_provided_data.md)
 
 # Assumptions
 
 1. Architecture solution case study contains only text and images type of content. Support for other types of content is a future work, if required.
 2. Architecture solution case study should be submitted as single PDF. Support for other submission formats is a future work, if required.
-3. License clearance.
+3. License clearance - to save cost at initial implementation we should stick to libraries offered under free of charge license weak copyleft licenses.

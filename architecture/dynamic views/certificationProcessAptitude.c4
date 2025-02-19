@@ -23,11 +23,25 @@ views {
         aptitudeTestTaker.answerCapture -> aptitudeTestTaker.questionSender
 
         parallel {
-            aptitudeTestTaker.questionSender -> aptitudeAutoGrader.multipleChoice
-            aptitudeTestTaker.questionSender -> aptitudeManualCapture.shortAnswer
+            aptitudeTestTaker.questionSender -[async]-> aptitudeAutoGrader.multipleChoice
+            aptitudeTestTaker.questionSender -[async]-> aptitudeManualCapture.shortAnswer
+            aptitudeTestTaker.questionSender -[async]-> ragAutoGrader.promptOrchestrator
         }
 
-        aptitudeManualGrader.shortAnswer -> aptitudeManualCapture.shortAnswer
+        parallel {
+            aptitudeAutoGrader.multipleChoice -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
+            aptitudeManualCapture.shortAnswer -> aptitudeManualCapture.ungradedDatabase
+            ragAutoGrader.promptOrchestrator -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
+        }
+
+        expert -> expertGradingUi.ui
+        expertGradingUi.ui -> aptitudeManualGrader.shortAnswer
+        parallel {
+            aptitudeManualGrader.shortAnswer -> aptitudeManualCapture.ungradedDatabase
+            aptitudeManualGrader.shortAnswer -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
+        }
+
+        aptitudeManualGrader.shortAnswer -> aptitudeManualGrader.gradeConsolidation
         
     }
 }

@@ -5,6 +5,9 @@ model {
     softwareSystem architectureSubmissionService
     softwareSystem architectureManualGrader {
         description "Architecture Manual Grader"
+        style {
+            color amber
+        }
     }
     softwareSystem candidateCertificationService
     softwareSystem candidateArchitectureNotification

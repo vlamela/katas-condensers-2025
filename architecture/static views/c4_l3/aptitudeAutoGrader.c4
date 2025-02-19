@@ -3,13 +3,7 @@ model {
         container multipleChoice {
             description "Multiple Choice"
         }
-        container gradeDatabase {
-            description "Aptitude Test Grade Database"
-            style {
-                shape cylinder
-            }
-        }
     }
 
-    aptitudeAutoGrader.multipleChoice -> aptitudeAutoGrader.gradeDatabase "saves graded multiple choice answers"
+    aptitudeAutoGrader.multipleChoice -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase "saves graded multiple choice answers"
 }

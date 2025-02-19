@@ -35,7 +35,7 @@ model {
         }
         container imageEmbeddingsGenerator {
             description "Generates embeddings from preprocessed images"
-            technology "Python, CLIPModel or ViTModel from Hugging Face Transformers or similar"
+            technology "Python, CLIPModel from Hugging Face Transformers or similar"
         }
         container embeddingsStore {
             description "Stores embeddings of valid short questions answers"

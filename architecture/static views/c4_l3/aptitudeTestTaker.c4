@@ -8,6 +8,7 @@ model {
         container testTimer
     }
 
+    candidate -> candidateTestingUi.ui "takes aptitude test"
     candidateTestingUi.ui -> aptitudeTestTaker.testLoader "loads aptitude test"
     aptitudeTestTaker.testLoader -> aptitudeTestMaintenanceService.testDatabase "fetches test from database"
     candidateTestingUi.ui -> aptitudeTestTaker.testTimer "times aptitude test"

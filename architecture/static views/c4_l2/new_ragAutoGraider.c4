@@ -1,5 +1,6 @@
 model {
     softwareSystem ragAutoGrader {
+        description "AI grader for short answers and architecture submissions"
         style {
             color green
         }
@@ -12,7 +13,7 @@ model {
         }
     }
 
-    aptitudeManualCapture -[async]-> ragAutoGrader "sends ungraded short answer" {
+    aptitudeTestTaker -[async]-> ragAutoGrader "sends ungraded short answer" {
         style {
             color green
         }
