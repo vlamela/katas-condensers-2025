@@ -5,10 +5,16 @@ model {
         container aptitudeTestMaintenance {
             description "Aptitude Test Maintenance"
         }
+        container testDatabase {
+            style {
+                shape cylinder
+            }
+        }
     }
     
     designatedExpert -> expertAdminUi.ui "adds, deletes or modifies aptitude test question or answer"
     expertAdminUi.ui -> aptitudeTestMaintenanceService.aptitudeTestMaintenance "adds, removes or modifies aptitude test questions and answers"
+    aptitudeTestMaintenanceService.aptitudeTestMaintenance -> aptitudeTestMaintenanceService.testDatabase "stores aptitude test questions and answers"
     aptitudeTestMaintenanceService.aptitudeTestMaintenance -> multimodalEmbeddingsPipeline.orchestrator "sends aptitude test question and answers" {
         style {
             color green

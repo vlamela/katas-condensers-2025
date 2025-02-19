@@ -1,46 +1,19 @@
 model {
 
     extend aptitudeManualGrader {
-        component shortAnswer
-        component gradeConsolidation
+        component shortAnswer {
+            description "Short Answer"
+        }
+        component gradeConsolidation {
+            description "Grade Consolidation"
+        }
 
-
-        expertGradingUi.ui -> aptitudeManualGrader.shortAnswer "retrieves ungraded short answer questiions for the candidate"
+        expertGradingUi.ui -> aptitudeManualGrader.shortAnswer "retrieves ungraded short answer questions for the candidate"
+        aptitudeManualGrader.shortAnswer -> aptitudeManualCapture.shortAnswer "retrieves ungraded short answer questions for the candidate"
         expertGradingUi.ui -> aptitudeManualGrader.gradeConsolidation "retrieves graded short answer questions for the candidate"
+        aptitudeManualGrader.gradeConsolidation -> aptitudeManualGrader.shortAnswer "retrieves graded short answer questions for the candidate"
         
     }
-}
 
-views {
 
-    // Shared local styles
-    style element.kind != actor {
-        notation "C4 Containers - unchanged"
-    }
-    style aptitudeManualGrader.promptOrchestrator, aptitudeManualGrader.retrievalService, aptitudeManualGrader.candidateSubmissionGuardrail, aptitudeManualGrader.generationService, aptitudeManualGrader.embeddingsStore {
-        notation "C4 Containers - added for AI extension"
-        color green
-    }
-
-    view aptitudeManualGraderContainer of aptitudeManualGrader {
-        title "Container view (C4 L2) of Aptitude Manual Grader (test 2) services"
-
-        group "Actors" {
-            include expert
-        }
-        group "UI" {
-            include expertGradingUi._
-        }
-        group "Existing Containers" {
-            include aptitudeManualCapture._
-            include shortAnswer
-            include gradeConsolidation
-        }
-        group "New Containers" {
-            include promptOrchestrator
-            include retrievalService
-            include candidateSubmissionGuardrail
-            include generationService
-        }
-    }
 }

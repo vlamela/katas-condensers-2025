@@ -2,20 +2,28 @@ model {
     extend ragAutoGrader {
         component promptOrchestrator {
             description "Orchestrates the prompt generation and retrieval services"
+            style {
+                color green
+            }
         }
         component retrievalService {
-            description "Retrieves embeddings of valid answers from the vector store"
-
+            description "Retrieves valid answers and grading criteria embeddings from persistent store"
+            style {
+                color green
+            }
         }
         component candidateSubmissionGuardrail {
-            description "Validates submitted short answers against plagiarism and AI-generated content"
-
+            description "Validates submitted short answers (test 1) or architecture submission (test 2) against plagiarism and AI-generated content"
+            style {
+                color green
+            }
         }
         component generationService {
-            description "Generates prompts for grading of candidate provided short answers, using valid answers as context"
-
+            description "Generates prompts for grading of candidate provided short answers (test 1) or architecture submission (test 2), using valid answers and grading criteria embeddings as context"
+            style {
+                color green
+            }
         }
-
-        ragAutoGrader.promptOrchestrator -> aptitudeManualCapture.shortAnswer "retrieves ungraded short answers for grading"
+        
     }
 }

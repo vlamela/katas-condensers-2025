@@ -2,15 +2,15 @@
 
 1. Process automation - company has a fear that the current manual processes of certification will not be able to handle increased load next years (see constraints below).
    - Potential improvements:
-     - (!!!last prio!!!) New multiple choice and short answer questions (test 1) generation.
-     - (!!!2nd prio!!!) Find the need to modify questions in test 1, based on candidates submissions.
+     - (out of scope) New multiple choice and short answer questions (test 1) generation.
+     - (out of scope) Find the need to modify questions in test 1, based on candidates submissions.
      - Manual grading of short answers (test 1)
-       - (!!!2nd prio!!!) Short answer (test 1) validation against plagiarism/AI generation. 
+       - (out of scope) Short answer (test 1) validation against plagiarism/AI generation. 
        - (!!!1st prio!!!) Short answer (test 1) validation for correctness
      - Removing bottleneck of designated expert software architects (5 of 300)
-       - (!!!last prio!!!) New case studies (test 2) generation, based on number of input parameters (architecture style, type of communications, technical context etc)
+       - (out of scope) New case studies (test 2) generation, based on number of input parameters (architecture style, type of communications, technical context etc)
      - Manual grading of case study submission (test 2)
-       - (!!!2nd prio!!!) Case study submission (test 2) validation against plagiarism/AI generation.
+       - (out of scope) Case study submission (test 2) validation against plagiarism/AI generation.
        - (!!!1st prio!!!) Case study submission (test 2) validation for correctness.
        - (!!!1st prio!!!) Detailed reasoning email generation (test 2).
 

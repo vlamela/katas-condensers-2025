@@ -1,8 +1,0 @@
-model {
-    extend architectureManualGrader {
-        component promptOrchestrator
-        component retrievalService
-        component generationService
-        component vectorStore
-    }
-}

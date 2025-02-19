@@ -4,4 +4,37 @@ model {
             color green
         }
     }
+
+    softwareSystem gradingModel {
+        technology "Self hosted or via remote API"
+        style {
+            color green
+        }
+    }
+
+    aptitudeManualCapture -[async]-> ragAutoGrader "sends ungraded short answer" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader -> multimodalEmbeddingsPipeline "retrieves valid answers and grading criteria embeddings" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader -> gradingModel "asks submission grade and feedback, given augmented context of submission, grading criteria and past valid answers" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader -> aptitudeManualGrader "marks submission as waiting for acceptance" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader -> multimodalEmbeddingsPipeline "persists acepted submission" {
+        style {
+            color green
+        }
+    }
 }

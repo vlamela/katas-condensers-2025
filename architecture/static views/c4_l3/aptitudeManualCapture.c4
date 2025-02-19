@@ -3,5 +3,13 @@ model {
         container shortAnswer {
             description "Persists short answers for manual grading"
         }
+        container ungradedDatabase {
+            description "Apotitude Test Ungraded Database"
+            style {
+                shape cylinder
+            }
+        }
     }
+    
+    aptitudeManualCapture.shortAnswer -> aptitudeManualCapture.ungradedDatabase "stores short answers for manual grading"
 }

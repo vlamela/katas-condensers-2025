@@ -20,6 +20,9 @@ model {
 
     softwareSystem multimodalEmbeddingsPipeline {
         description "Generates embeddings from multimodal input (text and images)"
+        style {
+            color green
+        }
     }
 
     companyAdmin -> companyAdminUi "manages expert software architects and their profiles"

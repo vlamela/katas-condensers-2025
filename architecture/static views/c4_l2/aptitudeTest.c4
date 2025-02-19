@@ -13,6 +13,9 @@ model {
     }
     softwareSystem aptitudeManualGrader {
         description "Aptitude Manual Grader"
+        style {
+            color amber
+        }
     }
     softwareSystem candidateStatusService
     softwareSystem candidateAptitudeNotification
@@ -25,8 +28,22 @@ model {
     aptitudeTestTaker -[async]-> aptitudeManualCapture "captures aptitude test short answers"
     aptitudeTestTaker -[async]-> aptitudeAutoGrader "grades aptitude test multiple choice answers"
 
-    expert -> expertGradingUi "grades aptitude test, provides feedback"
+    expert -> expertGradingUi "grades aptitude test, provides feedback" {
+        style {
+            color amber
+        }
+    }
     expertGradingUi -> aptitudeManualGrader "grades aptitude test, provides feedback"
+    expertGradingUi -> aptitudeManualGrader "corrects automated grading and feedback of aptitude test submission waiting for acceptance" {
+        style {
+            color green
+        }
+    }
+    expertGradingUi -> aptitudeManualGrader "accepts aptitude test submission waiting for acceptance" {
+        style {
+            color green
+        }
+    }
     aptitudeManualGrader -> aptitudeManualCapture "receives short answers of aptitude test"
     aptitudeManualGrader -> aptitudeAutoGrader "receives grade of aptitude test multiple choice"
     aptitudeManualGrader -> candidateStatusService "updates candidate' aptitude test status"
@@ -34,6 +51,8 @@ model {
 
     candidate -> candidateTestingUi "checks progress of certification attempt"
     candidateTestingUi -> candidateStatusService "checks progress of certification attempt"
+
+
 }
 
 views {
@@ -44,11 +63,9 @@ views {
     }
     style aptitudeManualGrader {
         notation "C4 Software Systems - changed for AI extension"
-        color amber
     }
     style multimodalEmbeddingsPipeline {
         notation "C4 Software Systems - added for AI extension"
-        color green
     }
 
     view aptitudeTestSystemContext {

@@ -1,0 +1,8 @@
+model {
+    extend candidateTestingUi {
+        container ui {
+            description "Candidate Testing User Interface"
+        }
+        
+    }
+}
