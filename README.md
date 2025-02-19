@@ -30,28 +30,28 @@ We identifed following scenarios of using AI in certification system:
 
 1. C4 Landscape view:
    1. [source](./architecture/static%20views/landscape.c4)
-   2. ![static image](./assets/static%2520views/commonLandscape.png)
+   2. clickable ![static image](./assets/static%2520views/commonLandscape.png)
 2. Administration proces view:
    1. [source](./architecture/static%20views/c4_l2/administration.c4)
-   2. ![static image](./assets/static%2520views/c4_l2/administrativeSystemContext.png)
+   2. clickable ![static image](./assets/static%2520views/c4_l2/administrativeSystemContext.png)
 3. Aptitude test view:
    1. [source](./architecture/static%20views/c4_l2/aptitudeTest.c4)
-   2. ![static image](./assets/static%2520views/c4_l2/aptitudeTestSystemContext.png)
+   2. clickable ![static image](./assets/static%2520views/c4_l2/aptitudeTestSystemContext.png)
 4. Embeddings data pipeline view:
    1. [source](./architecture/static%20views/c4_l3/new_multimodalEmbeddingsPipeline.c4)
-   2. ![static image](./assets/static%2520views/c4_l3/multimodalEmbeddingsPipelineContainer.png)
+   2. clickable ![static image](./assets/static%2520views/c4_l3/multimodalEmbeddingsPipelineContainer.png)
 
 ## Dynamic views
 
 1. Dynamic view of the 'Modify Aptitude Tests' use case of Administration Process:
    1. [source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
-   2. ![static image](./assets/dynamic%2520views/modifyAptitudeTest.png)
+   2. clickable ![static image](./assets/dynamic%2520views/modifyAptitudeTest.png)
 2. Dynamic view of the 'Certification Process (Test 1: Aptitude Test)' use case:
    1. [source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
-   2. ![static image](./assets/dynamic%2520views/certificationProcessAptitudeTest.png)
+   2. clickable ![static image](./assets/dynamic%2520views/certificationProcessAptitudeTest.png)
 3. Dynamic view of the 'Modify Case Studies and Grading Criteria' use case of Administration Process:
    1. [source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
-   2. ![static image](./assets/dynamic%2520views/modifyCaseStudiesAndGradingCriteria.png)
+   2. clickable ![static image](./assets/dynamic%2520views/modifyCaseStudiesAndGradingCriteria.png)
 
 ## Legend:
    1. Green blocks - added software systems or containers.
