@@ -46,7 +46,7 @@ views {
     }
 
     view architectureSolutionSystemContext {
-        description "System Context (C4 L1) of Architecture Solution (test 2) services"
+        title "System Context (C4 L1) of Architecture Solution (test 2) services"
 
         group "Users" {
             include candidate

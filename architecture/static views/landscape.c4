@@ -37,7 +37,7 @@ views {
     }
 
     view commonLandscape {
-        description "Common landscape (C4 L0)"
+        title "Common landscape (C4 L0)"
 
         group "Actors" {
             include element.kind == actor

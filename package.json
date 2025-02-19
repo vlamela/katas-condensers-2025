@@ -13,10 +13,15 @@
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
   "scripts": {
     "dev": "pnpm likec4 dev",
-    "build": "pnpm likec4 build -o ./dist"
+    "build": "pnpm likec4 build -o ./dist",
+    "clean:dist": "shx rm -rf dist",
+    "clean:nodemods": "shx rm -rf node_modules",
+    "clean": "conc --group --timings pnpm:clean:dist pnpm:clean:nodemods"
   },
   "devDependencies": {
-    "likec4": "^1.22.1"
+    "concurrently": "^9.1.2",
+    "likec4": "^1.22.1",
+    "shx": "^0.3.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

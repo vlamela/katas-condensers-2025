@@ -5,8 +5,8 @@ model {
             description "Case Study Maintenance"
         }
 
-        expertAdminUi.ui -> caseStudyMaintenanceService.caseStudyMaintenance "adds, removes or modifies case study and its baseline solution"
-        caseStudyMaintenanceService.caseStudyMaintenance -> multimodalEmbeddingsPipeline.orchestrator "generates embeddings from multimodal input (case study and its baseline solution)" {
+        expertAdminUi.ui -> caseStudyMaintenanceService.caseStudyMaintenance "adds, removes or modifies case study and grading criteria"
+        caseStudyMaintenanceService.caseStudyMaintenance -> multimodalEmbeddingsPipeline.orchestrator "generates embeddings from multimodal input (case study and grading criteria)" {
         style {
             color green
         }
@@ -26,7 +26,8 @@ views {
     }
 
     view caseStudyMaintenanceContainer of caseStudyMaintenance {
-        description "Container diagram for Case Study Maintenance Service"
+        title "Container view (C4 L2) of Case Study Maintenance Service"
+
         group "Actors" {
             include designatedExpert
         }

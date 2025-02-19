@@ -52,7 +52,7 @@ views {
     }
 
     view aptitudeTestSystemContext {
-        description "Landscape diagram (C4 L0) of Aptitude Test (test 1) services"
+        title "Landscape diagram (C4 L0) of Aptitude Test (test 1) services"
 
         group "Users" {
             include candidate

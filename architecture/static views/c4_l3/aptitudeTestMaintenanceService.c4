@@ -6,9 +6,10 @@ model {
             description "Aptitude Test Maintenance"
         }
     }
-
-    expertAdminUi.ui -> aptitudeTestMaintenanceService.aptitudeTestMaintenance "adds, removes or modifies aptitude test short questions"
-    aptitudeTestMaintenanceService.aptitudeTestMaintenance -> multimodalEmbeddingsPipeline.orchestrator "generates embeddings from multimodal input (aptitude test questions and answers)" {
+    
+    designatedExpert -> expertAdminUi.ui "adds, deletes or modifies aptitude test question or answer"
+    expertAdminUi.ui -> aptitudeTestMaintenanceService.aptitudeTestMaintenance "adds, removes or modifies aptitude test questions and answers"
+    aptitudeTestMaintenanceService.aptitudeTestMaintenance -> multimodalEmbeddingsPipeline.orchestrator "sends aptitude test question and answers" {
         style {
             color green
         }
@@ -27,7 +28,8 @@ views {
     }
 
     view aptitudeTestMaintenanceContainer of aptitudeTestMaintenanceService {
-        description "Container diagram for Aptitude Test Maintenance Service"
+        title "Container view (C4 L2) of Aptitude Test Maintenance Service"
+
         group "Actors" {
             include designatedExpert
         }

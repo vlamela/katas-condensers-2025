@@ -1,0 +1,21 @@
+model {
+    extend ragAutoGrader {
+        component promptOrchestrator {
+            description "Orchestrates the prompt generation and retrieval services"
+        }
+        component retrievalService {
+            description "Retrieves embeddings of valid answers from the vector store"
+
+        }
+        component candidateSubmissionGuardrail {
+            description "Validates submitted short answers against plagiarism and AI-generated content"
+
+        }
+        component generationService {
+            description "Generates prompts for grading of candidate provided short answers, using valid answers as context"
+
+        }
+
+        ragAutoGrader.promptOrchestrator -> aptitudeManualCapture.shortAnswer "retrieves ungraded short answers for grading"
+    }
+}

@@ -5,6 +5,10 @@ model {
             description "Orchestrates the multimodal embeddings pipeline"
             technology "Python, Ray or similar"
         }
+        container formatConvertor {
+            description "Converts input files to a common format (PDF)"
+            technology "Python, Pillow and img2pdf or similar"
+        }
         container textExtractor {
             description "Extracts text from binary input files (PDF)"
             technology "Python, PyMuPDF or pdfplumber or similar"
@@ -42,6 +46,11 @@ model {
         }
     }
 
+    multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.formatConvertor "converts input files to a common format (PDF)" {
+        style {
+            color green
+        }
+    }
     multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.textExtractor "extracts text from binary input files (PDF)" {
         style {
             color green
@@ -52,22 +61,22 @@ model {
             color green
         }
     }
-    multimodalEmbeddingsPipeline.textExtractor -> multimodalEmbeddingsPipeline.textPreprocessor "preprocesses text input (aptitude test short questions and answers, case study)" {
+    multimodalEmbeddingsPipeline.textExtractor -> multimodalEmbeddingsPipeline.textPreprocessor "preprocesses text input (text of aptitude test or case study)" {
         style {
             color green
         }
     }
-    multimodalEmbeddingsPipeline.imagesExtractor -> multimodalEmbeddingsPipeline.imagePreprocessor "preprocesses image input (case study)" {
+    multimodalEmbeddingsPipeline.imagesExtractor -> multimodalEmbeddingsPipeline.imagePreprocessor "preprocesses image input (images from aptitude test or case study)" {
         style {
             color green
         }
     }
-    multimodalEmbeddingsPipeline.textPreprocessor -> multimodalEmbeddingsPipeline.textTokenizer "tokenizes aptitude test short questions answers" {
+    multimodalEmbeddingsPipeline.textPreprocessor -> multimodalEmbeddingsPipeline.textTokenizer "tokenizes text of aptitude test or case study" {
         style {
             color green
         }
     }
-    multimodalEmbeddingsPipeline.textTokenizer -> multimodalEmbeddingsPipeline.textEmbeddingsGenerator "generates embeddings from tokenized short questions answers" {
+    multimodalEmbeddingsPipeline.textTokenizer -> multimodalEmbeddingsPipeline.textEmbeddingsGenerator "generates embeddings from tokenized text of aptitude test or case study" {
         style {
             color green
         }
@@ -77,12 +86,12 @@ model {
             color green
         }
     }
-    multimodalEmbeddingsPipeline.textEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore "stores embeddings of valid short questions answers" {
+    multimodalEmbeddingsPipeline.textEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore "stores embeddings of tokenized text of aptitude test or case study" {
         style {
             color green
         }
     }
-    multimodalEmbeddingsPipeline.imageEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore "stores embeddings of valid short questions answers" {
+    multimodalEmbeddingsPipeline.imageEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore "stores embeddings of preprocessed images from aptitude test or case study" {
         style {
             color green
         }
@@ -95,15 +104,16 @@ views {
     style element.kind != actor {
         notation "C4 Containers - unchanged"
     }
-    style multimodalEmbeddingsPipeline.orchestrator, multimodalEmbeddingsPipeline.textExtractor, multimodalEmbeddingsPipeline.imagesExtractor, multimodalEmbeddingsPipeline.textPreprocessor, multimodalEmbeddingsPipeline.imagePreprocessor, multimodalEmbeddingsPipeline.textTokenizer, multimodalEmbeddingsPipeline.textEmbeddingsGenerator, multimodalEmbeddingsPipeline.imageEmbeddingsGenerator, multimodalEmbeddingsPipeline.embeddingsStore {
+    style multimodalEmbeddingsPipeline.orchestrator, multimodalEmbeddingsPipeline.textExtractor, multimodalEmbeddingsPipeline.imagesExtractor, multimodalEmbeddingsPipeline.textPreprocessor, multimodalEmbeddingsPipeline.imagePreprocessor, multimodalEmbeddingsPipeline.textTokenizer, multimodalEmbeddingsPipeline.textEmbeddingsGenerator, multimodalEmbeddingsPipeline.imageEmbeddingsGenerator, multimodalEmbeddingsPipeline.embeddingsStore, multimodalEmbeddingsPipeline.formatConvertor {
         notation "C4 Containers - added for AI extension"
         color green
     }
 
     view multimodalEmbeddingsPipelineContainer of multimodalEmbeddingsPipeline {
-        description "Container diagram (C4 L2) of Multimodal Embeddings Pipeline"
+        title "Container view (C4 L2) of Multimodal Embeddings Pipeline"
 
         include multimodalEmbeddingsPipeline.orchestrator
+        include multimodalEmbeddingsPipeline.formatConvertor
         group "Text processing" {
             include multimodalEmbeddingsPipeline.textExtractor
             include multimodalEmbeddingsPipeline.textPreprocessor

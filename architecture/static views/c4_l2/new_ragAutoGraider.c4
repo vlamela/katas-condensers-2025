@@ -1,0 +1,7 @@
+model {
+    softwareSystem ragAutoGrader {
+        style {
+            color green
+        }
+    }
+}

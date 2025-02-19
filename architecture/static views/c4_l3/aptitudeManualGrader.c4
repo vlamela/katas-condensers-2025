@@ -3,33 +3,11 @@ model {
     extend aptitudeManualGrader {
         component shortAnswer
         component gradeConsolidation
-        component promptOrchestrator {
-            description "Orchestrates the prompt generation and retrieval services"
-        }
-        component retrievalService {
-            description "Retrieves embeddings of valid answers from the vector store"
 
-        }
-        component candidateSubmissionGuardrail {
-            description "Validates submitted short answers against plagiarism and AI-generated content"
-
-        }
-        component generationService {
-            description "Generates prompts for grading of candidate provided short answers, using valid answers as context"
-
-        }
-        component embeddingsStore {
-            description "Stores embeddings of valid answers"
-            style {
-                shape cylinder
-            }
-        }
 
         expertGradingUi.ui -> aptitudeManualGrader.shortAnswer "retrieves ungraded short answer questiions for the candidate"
         expertGradingUi.ui -> aptitudeManualGrader.gradeConsolidation "retrieves graded short answer questions for the candidate"
-
-        aptitudeManualGrader.promptOrchestrator -> aptitudeManualCapture.shortAnswer "retrieves ungraded short answers for grading"
-
+        
     }
 }
 
@@ -45,6 +23,8 @@ views {
     }
 
     view aptitudeManualGraderContainer of aptitudeManualGrader {
+        title "Container view (C4 L2) of Aptitude Manual Grader (test 2) services"
+
         group "Actors" {
             include expert
         }
@@ -61,7 +41,6 @@ views {
             include retrievalService
             include candidateSubmissionGuardrail
             include generationService
-            include embeddingsStore
         }
     }
 }

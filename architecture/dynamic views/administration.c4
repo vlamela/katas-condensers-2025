@@ -1,0 +1,75 @@
+views {
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Software Systems - unchanged"
+    }
+    style multimodalEmbeddingsPipeline {
+        notation "C4 Software Systems - added for AI extension"
+        color green
+    }
+    style multimodalEmbeddingsPipeline.orchestrator, multimodalEmbeddingsPipeline.textExtractor, multimodalEmbeddingsPipeline.imagesExtractor, multimodalEmbeddingsPipeline.textPreprocessor, multimodalEmbeddingsPipeline.imagePreprocessor, multimodalEmbeddingsPipeline.textTokenizer, multimodalEmbeddingsPipeline.textEmbeddingsGenerator, multimodalEmbeddingsPipeline.imageEmbeddingsGenerator, multimodalEmbeddingsPipeline.embeddingsStore, multimodalEmbeddingsPipeline.formatConvertor {
+        notation "C4 Containers - added for AI extension"
+        color green
+    }
+
+    dynamic view modifyAptitudeTest {
+        title "Dynamic view of the 'Modify Aptitude Tests' use case of Administration Process"
+
+        designatedExpert -> expertAdminUi.ui
+        expertAdminUi.ui -> aptitudeTestMaintenanceService.aptitudeTestMaintenance
+        aptitudeTestMaintenanceService.aptitudeTestMaintenance -> multimodalEmbeddingsPipeline.orchestrator {
+            notes "
+                For both multiple choice and short answer questions
+                Payload to send may contain text and images, depending on how question was defined
+            "
+        }
+        multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.formatConvertor
+        parallel {
+            multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.textExtractor
+            multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.imagesExtractor
+        }
+        parallel {
+            multimodalEmbeddingsPipeline.textExtractor -> multimodalEmbeddingsPipeline.textPreprocessor
+            multimodalEmbeddingsPipeline.imagesExtractor -> multimodalEmbeddingsPipeline.imagePreprocessor
+        }
+        multimodalEmbeddingsPipeline.textPreprocessor -> multimodalEmbeddingsPipeline.textTokenizer
+        parallel {
+            multimodalEmbeddingsPipeline.textTokenizer -> multimodalEmbeddingsPipeline.textEmbeddingsGenerator
+            multimodalEmbeddingsPipeline.imagePreprocessor -> multimodalEmbeddingsPipeline.imageEmbeddingsGenerator
+        }
+        parallel {
+            multimodalEmbeddingsPipeline.textEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore
+            multimodalEmbeddingsPipeline.imageEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore
+        }
+    }
+
+    dynamic view modifyCaseStudiesAndGradingCriteria {
+        title "Dynamic view of the 'Modify Case Studies and Grading Criteria' use case of Administration Process"
+
+        designatedExpert -> expertAdminUi.ui
+        expertAdminUi.ui -> caseStudyMaintenanceService.caseStudyMaintenance
+        caseStudyMaintenanceService.caseStudyMaintenance -> multimodalEmbeddingsPipeline.orchestrator {
+            notes "
+                Payload to send may contain text and images, depending on how case study was defined
+            "
+        }
+        multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.formatConvertor
+        parallel {
+            multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.textExtractor
+            multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.imagesExtractor
+        }
+        parallel {
+            multimodalEmbeddingsPipeline.textExtractor -> multimodalEmbeddingsPipeline.textPreprocessor
+            multimodalEmbeddingsPipeline.imagesExtractor -> multimodalEmbeddingsPipeline.imagePreprocessor
+        }
+        multimodalEmbeddingsPipeline.textPreprocessor -> multimodalEmbeddingsPipeline.textTokenizer
+        parallel {
+            multimodalEmbeddingsPipeline.textTokenizer -> multimodalEmbeddingsPipeline.textEmbeddingsGenerator
+            multimodalEmbeddingsPipeline.imagePreprocessor -> multimodalEmbeddingsPipeline.imageEmbeddingsGenerator
+        }
+        parallel {
+            multimodalEmbeddingsPipeline.textEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore
+            multimodalEmbeddingsPipeline.imageEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore
+        }
+    }
+}

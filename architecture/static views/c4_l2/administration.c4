@@ -30,8 +30,8 @@ model {
     designatedExpert -> expertAdminUi "analyzes aptitude test results"
     expertAdminUi -> aptitudeTestAnalysisService "analyzes aptitude test results"
 
-    designatedExpert -> expertAdminUi "manages aptitude test questions"
-    expertAdminUi -> aptitudeTestMaintenanceService "manages aptitude test questions"
+    designatedExpert -> expertAdminUi "manages aptitude test questions and answers"
+    expertAdminUi -> aptitudeTestMaintenanceService "manages aptitude test questions and answers"
     aptitudeTestMaintenanceService -> multimodalEmbeddingsPipeline "generates embeddings from multimodal input (aptitude test questions and answers)" {
         style {
             color green
@@ -40,7 +40,7 @@ model {
 
     designatedExpert -> expertAdminUi "manages case studies"
     expertAdminUi -> caseStudyMaintenanceService "manages case studies"
-    caseStudyMaintenanceService -> multimodalEmbeddingsPipeline "generates embeddings from multimodal input (case study and its baseline solution)" {
+    caseStudyMaintenanceService -> multimodalEmbeddingsPipeline "generates embeddings from multimodal input (case study and grading criteria)" {
         style {
             color green
         }
@@ -59,7 +59,7 @@ views {
     }
 
     view administrativeSystemContext {
-        description "System Context diagram (C4 L1) of Administrative services"
+        title "System Context diagram (C4 L1) of Administrative services"
 
         include companyAdminUi
         include expertAdminUi
