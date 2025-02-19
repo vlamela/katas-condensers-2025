@@ -1,0 +1,45 @@
+model {
+    
+    extend caseStudyMaintenanceService {
+        container caseStudyMaintenance {
+            description "Case Study Maintenance"
+        }
+        container textPreprocessor {
+            description "Preprocesses case studies and baseline architecture solutions: removes unnecessary characters, normalizes whitespace, and tokenizes into segments"
+        }
+        container tokenizer {
+            description "Converts case studies and baseline architecture solutions into numerical tokens"
+        }
+        container generator {
+            description "Generates embeddings from tokenized case studies and baseline architecture solutions"
+        }
+        component embeddingsStore {
+            description "Stores embeddings of case studies and baseline architecture solutions"
+            style {
+                shape cylinder
+            }
+        }
+
+        expertAdminUi.ui -> aptitudeTestMaintenanceService.aptitudeTestMaintenance "adds, removes or modifies aptitude test short questions"
+        aptitudeTestMaintenanceService.aptitudeTestMaintenance -> aptitudeTestMaintenanceService.preprocessor "preprocesses aptitude test short questions answers" {
+            style {
+                color green
+            }
+        }
+        aptitudeTestMaintenanceService.preprocessor -> aptitudeTestMaintenanceService.tokenizer "tokenizes aptitude test short questions answers" {
+            style {
+                color green
+            }
+        }
+        aptitudeTestMaintenanceService.tokenizer -> aptitudeTestMaintenanceService.generator "generates embeddings from tokenized short questions answers" {
+            style {
+                color green
+            }
+        }
+        aptitudeTestMaintenanceService.generator -> aptitudeTestMaintenanceService.embeddingsStore "stores embeddings of valid short questions answers" {
+            style {
+                color green
+            }
+        }
+    }
+}

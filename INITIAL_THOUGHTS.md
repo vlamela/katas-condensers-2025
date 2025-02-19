@@ -65,3 +65,9 @@
 # ADRs
 
 1. TBD
+
+# Assumptions
+
+1. Architecture solution case study contains only text and images type of content. Support for other types of content is a future work, if required.
+2. Architecture solution case study should be submitted as single PDF. Support for other submission formats is a future work, if required.
+3. License clearance.

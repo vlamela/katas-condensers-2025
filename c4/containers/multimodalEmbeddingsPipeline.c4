@@ -1,0 +1,127 @@
+model {
+    
+    extend multimodalEmbeddingsPipeline {
+        container orchestrator {
+            description "Orchestrates the multimodal embeddings pipeline"
+            technology "Python, Ray or similar"
+        }
+        container textExtractor {
+            description "Extracts text from binary input files (PDF)"
+            technology "Python, PyMuPDF or pdfplumber or similar"
+        }
+        container imagesExtractor {
+            description "Extracts images from binary input files (PDF)"
+            technology "Python, PyMuPDF or pdf2image or similar"
+        }
+        container textPreprocessor {
+            description "Preprocesses text input (aptitude test short questions and answers, case study): removes unnecessary characters, normalizes whitespace, and tokenizes into segments"
+            technology "Python, NLTK or spacy or similar"
+        }
+        container imagePreprocessor {
+            description "Preprocesses image input (case study): resizes, normalizes, and converts to grayscale"
+            technology "Python, OpenCV or Pillow or similar"
+        }
+        container textTokenizer {
+            description "Converts aptitude test short questions answers into numerical tokens"
+            technology "Python, BertTokenizer from Hugging Face Transformers Tokenizers or similar"
+        }
+        container textEmbeddingsGenerator {
+            description "Generates embeddings from tokenized short questions answers"
+            technology "Python, BertModel from Hugging Face Transformers or similar"
+        }
+        container imageEmbeddingsGenerator {
+            description "Generates embeddings from preprocessed images"
+            technology "Python, CLIPModel from Hugging Face Transformers or similar"
+        }
+        component embeddingsStore {
+            description "Stores embeddings of valid short questions answers"
+            style {
+                shape cylinder
+            }
+        }
+    }
+
+    multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.textExtractor "extracts text from binary input files (PDF)" {
+        style {
+            color green
+        }
+    }
+    multimodalEmbeddingsPipeline.orchestrator -> multimodalEmbeddingsPipeline.imagesExtractor "extracts images from binary input files (PDF)" {
+        style {
+            color green
+        }
+    }
+    multimodalEmbeddingsPipeline.textExtractor -> multimodalEmbeddingsPipeline.textPreprocessor "preprocesses text input (aptitude test short questions and answers, case study)" {
+        style {
+            color green
+        }
+    }
+    multimodalEmbeddingsPipeline.imagesExtractor -> multimodalEmbeddingsPipeline.imagePreprocessor "preprocesses image input (case study)" {
+        style {
+            color green
+        }
+    }
+    multimodalEmbeddingsPipeline.textPreprocessor -> multimodalEmbeddingsPipeline.textTokenizer "tokenizes aptitude test short questions answers" {
+        style {
+            color green
+        }
+    }
+    multimodalEmbeddingsPipeline.textTokenizer -> multimodalEmbeddingsPipeline.textEmbeddingsGenerator "generates embeddings from tokenized short questions answers" {
+        style {
+            color green
+        }
+    }
+    multimodalEmbeddingsPipeline.imagePreprocessor -> multimodalEmbeddingsPipeline.imageEmbeddingsGenerator "generates embeddings from preprocessed images" {
+        style {
+            color green
+        }
+    }
+    multimodalEmbeddingsPipeline.textEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore "stores embeddings of valid short questions answers" {
+        style {
+            color green
+        }
+    }
+    multimodalEmbeddingsPipeline.imageEmbeddingsGenerator -> multimodalEmbeddingsPipeline.embeddingsStore "stores embeddings of valid short questions answers" {
+        style {
+            color green
+        }
+    }
+}
+
+views {
+    
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Containers - unchanged"
+    }
+    style   multimodalEmbeddingsPipeline.orchestrator,
+            multimodalEmbeddingsPipeline.textExtractor,
+            multimodalEmbeddingsPipeline.imagesExtractor,
+            multimodalEmbeddingsPipeline.textPreprocessor,
+            multimodalEmbeddingsPipeline.imagePreprocessor,
+            multimodalEmbeddingsPipeline.textTokenizer,
+            multimodalEmbeddingsPipeline.textEmbeddingsGenerator,
+            multimodalEmbeddingsPipeline.imageEmbeddingsGenerator,
+            multimodalEmbeddingsPipeline.embeddingsStore {
+        notation "C4 Containers - added for AI extension"
+        color green
+    }
+
+    view multimodalEmbeddingsPipelineContainer of multimodalEmbeddingsPipeline {
+        include multimodalEmbeddingsPipeline.orchestrator
+        group "Text processing" {
+            include multimodalEmbeddingsPipeline.textExtractor
+            include multimodalEmbeddingsPipeline.textPreprocessor
+            include multimodalEmbeddingsPipeline.textTokenizer
+            include multimodalEmbeddingsPipeline.textEmbeddingsGenerator
+        }
+        group "Images processing" {
+            include multimodalEmbeddingsPipeline.imagesExtractor
+            include multimodalEmbeddingsPipeline.imagePreprocessor
+            include multimodalEmbeddingsPipeline.imageEmbeddingsGenerator
+        }
+        group "Persistent Storage" {
+            include multimodalEmbeddingsPipeline.embeddingsStore
+        }
+    }
+}

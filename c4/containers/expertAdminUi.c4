@@ -1,0 +1,9 @@
+model {
+    
+    extend expertAdminUi {
+        container ui {
+            description "Expert Admin User Interface"
+        }
+        
+    }
+}

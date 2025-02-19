@@ -32,6 +32,10 @@ model {
         description "Aptitude Test Analysis Service"
     }
 
+    softwareSystem multimodalEmbeddingsPipeline {
+        description "Generates embeddings from multimodal input (text and images)"
+    }
+
     companyAdmin -> companyAdminUi "manages expert software architects and their profiles"
     expert -> companyAdminUi "manages own profile"
     designatedExpert -> companyAdminUi "manages own profile"
@@ -42,9 +46,11 @@ model {
 
     designatedExpert -> expertAdminUi "manages aptitude test questions"
     expertAdminUi -> aptitudeTestMaintenanceService "manages aptitude test questions"
+    aptitudeTestMaintenanceService -> multimodalEmbeddingsPipeline "generates embeddings from text input (text of aptitude test questions and answers)"
 
     designatedExpert -> expertAdminUi "manages case studies"
     expertAdminUi -> caseStudyMaintenanceService "manages case studies"
+    aptitudeTestMaintenanceService -> multimodalEmbeddingsPipeline "generates embeddings from multimodal input (text and images from case study)"
 
     // Aptitude Test (test 1)
     softwareSystem candidateTestingUi {
@@ -130,6 +136,10 @@ views {
         notation "C4 Software Systems - changed for AI extension"
         color amber
     }
+    style multimodalEmbeddingsPipeline {
+        notation "C4 Software Systems - added for AI extension"
+        color green
+    }
 
     view landscape {
 
@@ -156,6 +166,7 @@ views {
             include aptitudeManualGrader
             include candidateStatusService
             include candidateAptitudeNotification
+            include multimodalEmbeddingsPipeline
         }
 
         group "Case Study" {
@@ -176,6 +187,7 @@ views {
         include aptitudeTestMaintenanceService
         include caseStudyMaintenanceService
         include aptitudeTestAnalysisService
+        include multimodalEmbeddingsPipeline
     }
 
     view aptitudeTestSystemContext {
