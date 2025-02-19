@@ -14,11 +14,14 @@
   "scripts": {
     "dev": "pnpm likec4 dev",
     "build": "pnpm likec4 build -o ./dist",
+    "png": "pnpm likec4 export png --theme dark -o ./assets",
     "clean:dist": "shx rm -rf dist",
     "clean:nodemods": "shx rm -rf node_modules",
-    "clean": "conc --group --timings pnpm:clean:dist pnpm:clean:nodemods"
+    "clean:png": "shx rm -rf assets",
+    "clean": "conc --group --timings pnpm:clean:dist pnpm:clean:png pnpm:clean:nodemods"
   },
   "devDependencies": {
+    "@types/node": "^22.13.4",
     "concurrently": "^9.1.2",
     "likec4": "^1.22.1",
     "shx": "^0.3.4"

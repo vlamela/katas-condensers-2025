@@ -5,9 +5,6 @@ model {
     softwareSystem architectureSubmissionService
     softwareSystem architectureManualGrader {
         description "Architecture Manual Grader"
-        style {
-            color amber
-        }
     }
     softwareSystem candidateCertificationService
     softwareSystem candidateArchitectureNotification
@@ -38,10 +35,6 @@ views {
     // Shared local styles
     style element.kind != actor {
         notation "C4 Software Systems - unchanged"
-    }
-    style architectureManualGrader {
-        notation "C4 Software Systems - changed for AI extension"
-        color amber
     }
     style multimodalEmbeddingsPipeline {
         notation "C4 Software Systems - added for AI extension"
