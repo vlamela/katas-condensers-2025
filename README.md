@@ -29,37 +29,37 @@ We identifed following scenarios of using AI in certification system:
 ## Static view
 
 1. C4 Landscape view:
-  1. ![source](./architecture/static%20views/landscape.c4)
-  2. ![static image](./assets/static%2520views/commonLandscape.png)
+   1. [source](./architecture/static%20views/landscape.c4)
+   2. ![static image](./assets/static%2520views/commonLandscape.png)
 2. Administration proces view:
-  1. ![source](./architecture/static%20views/c4_l2/administration.c4)
-  2. ![static image](./assets/static%2520views/c4_l2/administrativeSystemContext.png)
+   1. [source](./architecture/static%20views/c4_l2/administration.c4)
+   2. ![static image](./assets/static%2520views/c4_l2/administrativeSystemContext.png)
 3. Aptitude test view:
-  1. ![source](./architecture/static%20views/c4_l2/aptitudeTest.c4)
-  2. ![static image](./assets/static%2520views/c4_l2/aptitudeTestSystemContext.png)
+   1. [source](./architecture/static%20views/c4_l2/aptitudeTest.c4)
+   2. ![static image](./assets/static%2520views/c4_l2/aptitudeTestSystemContext.png)
 4. Embeddings data pipeline view:
-  1. ![source](./architecture/static%20views/c4_l3/new_multimodalEmbeddingsPipeline.c4)
-  2. ![static image](./assets/static%2520views/c4_l3/multimodalEmbeddingsPipelineContainer.png)
+   1. [source](./architecture/static%20views/c4_l3/new_multimodalEmbeddingsPipeline.c4)
+   2. ![static image](./assets/static%2520views/c4_l3/multimodalEmbeddingsPipelineContainer.png)
 
 ## Dynamic views
 
 1. Dynamic view of the 'Modify Aptitude Tests' use case of Administration Process:
-  1. ![source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
-  2. ![source](./assets/dynamic%2520views/modifyAptitudeTest.png)
+   1. [source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
+   2. ![static image](./assets/dynamic%2520views/modifyAptitudeTest.png)
 2. Dynamic view of the 'Certification Process (Test 1: Aptitude Test)' use case:
-  1. ![source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
-  2. ![source](./assets/dynamic%2520views/certificationProcessAptitudeTest.png)
+   1. [source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
+   2. ![static image](./assets/dynamic%2520views/certificationProcessAptitudeTest.png)
 3. Dynamic view of the 'Modify Case Studies and Grading Criteria' use case of Administration Process:
-  1. ![source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
-  2. ![source](./assets/dynamic%2520views/modifyCaseStudiesAndGradingCriteria.png)
+   1. [source](./architecture/dynamic%20views/certificationProcessAptitude.c4)
+   2. ![static image](./assets/dynamic%2520views/modifyCaseStudiesAndGradingCriteria.png)
 
 ## Legend:
-  1. Green blocks - added software systems or containers.
-  2. Amber blocks - changed software systems or containers.
+   1. Green blocks - added software systems or containers.
+   2. Amber blocks - changed software systems or containers.
 
 # ADRs
 
-1. ![Validation for Correctness, common](./architecture/adr/1_validation_for_correctness_common.md)
-2. ![Validation for Correctness, embedding models](./architecture/adr/1_validation_for_correctness_embedding_model.md)
-3. ![Accuracy of candidate submission](./architecture/adr/2_accuracy_candidate_submission.md)
-4. ![Accuracy of commpany provided data](./architecture/adr/2_accuracy_company_provided_data.md)
+1. [Validation for Correctness, common](./architecture/adr/1_validation_for_correctness_common.md)
+2. [Validation for Correctness, embedding models](./architecture/adr/1_validation_for_correctness_embedding_model.md)
+3. [Accuracy of candidate submission](./architecture/adr/2_accuracy_candidate_submission.md)
+4. [Accuracy of commpany provided data](./architecture/adr/2_accuracy_company_provided_data.md)
