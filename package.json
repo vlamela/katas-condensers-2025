@@ -1,0 +1,34 @@
+{
+  "name": "katas-condensers-2025",
+  "version": "1.0.0",
+  "description": "Architectural Katas Winter 2025, submission of Condensers team",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vlamela/katas-condensers-2025.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/vlamela/katas-condensers-2025#readme",
+  "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
+  "scripts": {
+    "dev": "pnpm likec4 dev",
+    "build": "pnpm likec4 build -o ./dist",
+    "png": "pnpm likec4 export png --theme dark -o ./assets",
+    "clean:dist": "shx rm -rf dist",
+    "clean:nodemods": "shx rm -rf node_modules",
+    "clean:png": "shx rm -rf assets",
+    "clean": "conc --group --timings pnpm:clean:dist pnpm:clean:png pnpm:clean:nodemods"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "concurrently": "^9.1.2",
+    "likec4": "^1.22.1",
+    "shx": "^0.3.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

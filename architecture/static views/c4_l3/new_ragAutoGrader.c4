@@ -1,0 +1,71 @@
+model {
+    extend ragAutoGrader {
+        component promptOrchestrator {
+            description "Orchestrates the prompt generation and retrieval services"
+            style {
+                color green
+            }
+        }
+        component retrievalService {
+            description "Retrieves valid answers and grading criteria embeddings from persistent store"
+            style {
+                color green
+            }
+        }
+        component candidateSubmissionGuardrail {
+            description "Validates submitted short answers (test 1) or architecture submission (test 2) against plagiarism and AI-generated content"
+            style {
+                color green
+            }
+        }
+        component generationService {
+            description "Generates prompts for grading of candidate provided short answers (test 1) or architecture submission (test 2), using valid answers and grading criteria embeddings as context"
+            style {
+                color green
+            }
+        }
+        
+    }
+
+    aptitudeTestTaker.questionSender -[async]-> ragAutoGrader.promptOrchestrator "generates prompt to grade candidate submission" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> ragAutoGrader.retrievalService "retrieves embeddings of valid answers and grading criteria" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.retrievalService -> multimodalEmbeddingsPipeline.embeddingsStore "retrieves embeddings of valid answers and grading criteria" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> ragAutoGrader.generationService "generates prompt to grade candidate submission" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> ragAutoGrader.candidateSubmissionGuardrail "validates candidate submission against plagiarism and AI-generated content" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.candidateSubmissionGuardrail -> gradingModel "asks model to grade candidate submission with generated prompt" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase "persists AI graded candidate submission" {
+        style {
+            color green
+        }
+    }
+    ragAutoGrader.promptOrchestrator -> aptitudeManualGrader.gradeConsolidation "marks submission as waiting for acceptance" {
+        style {
+            color green
+        }
+    }
+
+}

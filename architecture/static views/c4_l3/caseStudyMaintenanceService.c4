@@ -1,0 +1,42 @@
+model {
+    
+    extend caseStudyMaintenanceService {
+        container caseStudyMaintenance {
+            description "Case Study Maintenance"
+        }
+
+        expertAdminUi.ui -> caseStudyMaintenanceService.caseStudyMaintenance "adds, removes or modifies case study and grading criteria"
+        caseStudyMaintenanceService.caseStudyMaintenance -> multimodalEmbeddingsPipeline.orchestrator "generates embeddings from multimodal input (case study and grading criteria)" {
+        style {
+            color green
+        }
+    }
+    }
+}
+
+views {
+    
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Containers - unchanged"
+    }
+    style multimodalEmbeddingsPipeline._ {
+        notation "C4 Containers - added for AI extension"
+        color green
+    }
+
+    view caseStudyMaintenanceContainer of caseStudyMaintenance {
+        title "Container view (C4 L2) of Case Study Maintenance Service"
+
+        group "Actors" {
+            include designatedExpert
+        }
+        group "UI" {
+            include expertAdminUi._
+        }
+        group "Existing Containers" {
+            include caseStudyMaintenanceService.caseStudyMaintenance
+        }
+        include multimodalEmbeddingsPipeline._
+    }
+}

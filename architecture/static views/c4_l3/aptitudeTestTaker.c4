@@ -1,0 +1,19 @@
+model {
+    extend aptitudeTestTaker {
+        container testLoader {
+            description "Test Loader"
+        }
+        container questionSender
+        container answerCapture
+        container testTimer
+    }
+
+    candidate -> candidateTestingUi.ui "takes aptitude test"
+    candidateTestingUi.ui -> aptitudeTestTaker.testLoader "loads aptitude test"
+    aptitudeTestTaker.testLoader -> aptitudeTestMaintenanceService.testDatabase "fetches test from database"
+    candidateTestingUi.ui -> aptitudeTestTaker.testTimer "times aptitude test"
+    candidateTestingUi.ui -> aptitudeTestTaker.answerCapture "captures candidate answers"
+    aptitudeTestTaker.answerCapture -> aptitudeTestTaker.questionSender "sends answers for manual and automated grading"
+    aptitudeTestTaker.questionSender -[async]-> aptitudeManualCapture.shortAnswer "sends short answer for manual grading"
+    aptitudeTestTaker.questionSender -[async]-> aptitudeAutoGrader.multipleChoice "sends multiple choice answer for auto grading"
+}

@@ -1,0 +1,53 @@
+views {
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Software Systems - unchanged"
+    }
+    style multimodalEmbeddingsPipeline {
+        notation "C4 Software Systems - added for AI extension"
+        color green
+    }
+    style multimodalEmbeddingsPipeline.orchestrator, multimodalEmbeddingsPipeline.textExtractor, multimodalEmbeddingsPipeline.imagesExtractor, multimodalEmbeddingsPipeline.textPreprocessor, multimodalEmbeddingsPipeline.imagePreprocessor, multimodalEmbeddingsPipeline.textTokenizer, multimodalEmbeddingsPipeline.textEmbeddingsGenerator, multimodalEmbeddingsPipeline.imageEmbeddingsGenerator, multimodalEmbeddingsPipeline.embeddingsStore, multimodalEmbeddingsPipeline.formatConvertor {
+        notation "C4 Containers - added for AI extension"
+        color green
+    }
+    dynamic view certificationProcessAptitudeTest {
+        title "Dynamic view of the 'Certification Process (Test 1: Aptitude Test)' use case"
+        
+        candidate -> candidateTestingUi.ui
+        candidateTestingUi.ui -> aptitudeTestTaker.testLoader
+        aptitudeTestTaker.testLoader -> aptitudeTestMaintenanceService.testDatabase
+        candidateTestingUi.ui -> aptitudeTestTaker.testTimer
+        candidateTestingUi.ui -> aptitudeTestTaker.answerCapture
+        
+        aptitudeTestTaker.answerCapture -> aptitudeTestTaker.questionSender
+
+        parallel {
+            aptitudeTestTaker.questionSender -[async]-> aptitudeAutoGrader.multipleChoice
+            aptitudeTestTaker.questionSender -[async]-> aptitudeManualCapture.shortAnswer
+            aptitudeTestTaker.questionSender -[async]-> ragAutoGrader.promptOrchestrator
+        }
+
+        // Save the results of the grading
+        parallel {
+            aptitudeAutoGrader.multipleChoice -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
+            aptitudeManualCapture.shortAnswer -> aptitudeManualCapture.ungradedDatabase
+            ragAutoGrader.promptOrchestrator -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
+        }
+
+        ragAutoGrader.promptOrchestrator -> aptitudeManualGrader.gradeConsolidation
+
+        // Ask expert to accept or correct the AI grading
+        expert -> expertGradingUi.ui "processes AI graded short answers in waiting for acceptance status"
+        expertGradingUi.ui -> aptitudeManualGrader.gradeConsolidation "accepts or corrects aptitude test submission waiting for acceptance"
+
+        // Save the results of the expert grading
+        expertGradingUi.ui -> aptitudeManualGrader.shortAnswer
+        parallel {
+            aptitudeManualGrader.shortAnswer -> aptitudeManualCapture.ungradedDatabase
+            aptitudeManualGrader.shortAnswer -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
+        }
+        
+        // Rest of the process unchanged
+    }
+}

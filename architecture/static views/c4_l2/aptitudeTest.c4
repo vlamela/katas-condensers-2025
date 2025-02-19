@@ -1,0 +1,100 @@
+model {
+    softwareSystem candidateRegistrationService {
+        description "Candidate Registration Service"
+    }
+    softwareSystem aptitudeTestTaker {
+        description "Aptitude Test Taker"
+    }
+    softwareSystem aptitudeManualCapture {
+        description "Aptitude Manual Capture"
+    }
+    softwareSystem aptitudeAutoGrader {
+        description "Aptitude Auto Grader"
+    }
+    softwareSystem aptitudeManualGrader {
+        description "Aptitude Manual Grader"
+        style {
+            color amber
+        }
+    }
+    softwareSystem candidateStatusService
+    softwareSystem candidateAptitudeNotification
+
+    candidate -> candidateTestingUi "registers candidate for certification"
+    candidateTestingUi -> candidateRegistrationService "registers candidate for certification"
+
+    candidate -> candidateTestingUi "takes aptitude test"
+    candidateTestingUi -> aptitudeTestTaker "takes aptitude test"
+    aptitudeTestTaker -[async]-> aptitudeManualCapture "captures aptitude test short answers"
+    aptitudeTestTaker -[async]-> aptitudeAutoGrader "grades aptitude test multiple choice answers"
+
+    expert -> expertGradingUi "grades aptitude test, provides feedback" {
+        style {
+            color amber
+        }
+    }
+    expertGradingUi -> aptitudeManualGrader "grades aptitude test, provides feedback"
+    expertGradingUi -> aptitudeManualGrader "corrects automated grading and feedback of aptitude test submission waiting for acceptance" {
+        style {
+            color green
+        }
+    }
+    expertGradingUi -> aptitudeManualGrader "accepts aptitude test submission waiting for acceptance" {
+        style {
+            color green
+        }
+    }
+    aptitudeManualGrader -> aptitudeManualCapture "receives short answers of aptitude test"
+    aptitudeManualGrader -> aptitudeAutoGrader "receives grade of aptitude test multiple choice"
+    aptitudeManualGrader -> candidateStatusService "updates candidate' aptitude test status"
+    aptitudeManualGrader -> candidateAptitudeNotification "notifies candidate of test results, provides feedback, provides instructions on how to proceed"
+
+    candidate -> candidateTestingUi "checks progress of certification attempt"
+    candidateTestingUi -> candidateStatusService "checks progress of certification attempt"
+
+
+}
+
+views {
+
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Software Systems - unchanged"
+    }
+    style aptitudeManualGrader {
+        notation "C4 Software Systems - changed for AI extension"
+    }
+    style multimodalEmbeddingsPipeline {
+        notation "C4 Software Systems - added for AI extension"
+    }
+
+    view aptitudeTestSystemContext {
+        title "Landscape diagram (C4 L0) of Aptitude Test (test 1) services"
+
+        group "Users" {
+            include candidate
+            include expert
+        }
+        group "UI" {
+            include candidateTestingUi
+            include expertGradingUi
+        }
+        group "Registration" {
+            include candidateRegistrationService
+        }
+        group "Aptitude Test" {
+            include aptitudeTestTaker
+        }
+        group "Grading" {
+            include aptitudeManualCapture
+            include aptitudeAutoGrader
+            include aptitudeManualGrader
+        }
+        group "Certification status" {
+            include candidateStatusService
+        }
+        group "Notification" {
+            include candidateAptitudeNotification
+        }
+    }
+}

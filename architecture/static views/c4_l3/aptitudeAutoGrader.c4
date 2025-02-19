@@ -1,0 +1,9 @@
+model {
+    extend aptitudeAutoGrader {
+        container multipleChoice {
+            description "Multiple Choice"
+        }
+    }
+
+    aptitudeAutoGrader.multipleChoice -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase "saves graded multiple choice answers"
+}

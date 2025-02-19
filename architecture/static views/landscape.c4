@@ -1,0 +1,80 @@
+model {
+    actor candidate {
+        description "Candidate for certification"
+    }
+    actor designatedExpert {
+        description "Expert software architect designated to add or modify aptitude test questions or case studies"
+    }
+    actor expert {
+        description "Expert software architect designated to grade candidate submissions"
+    }
+    actor companyAdmin {
+        description "Company administrator"
+    }
+
+    softwareSystem candidateTestingUi {
+        description "Candidate Testing User Interface"
+    }
+    softwareSystem expertGradingUi {
+        description "Expert Grading User Interface"
+    }
+
+}
+
+views {
+
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Software Systems - unchanged"
+    }
+    style multimodalEmbeddingsPipeline {
+        notation "C4 Software Systems - added for AI extension"
+        color green
+    }
+
+    view commonLandscape {
+        title "Common landscape (C4 L0)"
+
+        group "Actors" {
+            include element.kind == actor
+        }
+        
+        group "Administrative" {
+            include companyAdminUi
+            include expertAdminUi
+            include userMaintenanceService
+            include aptitudeTestMaintenanceService
+            include caseStudyMaintenanceService
+            include aptitudeTestAnalysisService
+        }
+        
+        include multimodalEmbeddingsPipeline
+
+        group "Aptitude Test" {
+            include candidateTestingUi
+            include expertGradingUi
+            include candidateRegistrationService
+            include aptitudeTestTaker
+            include aptitudeManualCapture
+            include aptitudeAutoGrader
+            include aptitudeManualGrader
+            include candidateStatusService
+            include candidateAptitudeNotification
+            include multimodalEmbeddingsPipeline
+        }
+
+        group "Case Study" {
+            include certificationViewerUi
+            include caseStudyRetrievalService
+            include architectureSubmissionService
+            include architectureManualGrader
+            include candidateCertificationService
+            include candidateArchitectureNotification
+            include certificationViewerService
+        }
+
+        include ragAutoGrader
+        include gradingModel
+    }
+    
+}

@@ -1,0 +1,24 @@
+specification {
+    element actor {
+        notation "Actor"
+        style {
+            shape person
+        }
+    }
+
+    // C4
+    element softwareSystem {
+        notation "C4 Software System"
+    }
+    element container {
+        notation "C4 Container"
+    }
+    element component {
+        notation "C4 Component"
+    }
+
+    // Communication styles
+    relationship async {
+        line dotted
+    }
+}

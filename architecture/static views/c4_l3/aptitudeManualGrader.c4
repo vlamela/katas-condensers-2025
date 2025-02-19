@@ -1,0 +1,20 @@
+model {
+
+    extend aptitudeManualGrader {
+        component shortAnswer {
+            description "Short Answer"
+        }
+        component gradeConsolidation {
+            description "Grade Consolidation"
+        }
+
+        expert -> expertGradingUi.ui "grades ungraded short answer questions for the candidate"
+        expertGradingUi.ui -> aptitudeManualGrader.shortAnswer "grades ungraded short answer questions for the candidate"
+        aptitudeManualGrader.shortAnswer -> aptitudeManualCapture.ungradedDatabase "retrieves ungraded short answer questions for the candidate"
+        aptitudeManualGrader.shortAnswer -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase "retrieves AI graded short answer questions for the candidate"
+        aptitudeManualGrader.shortAnswer -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase "persists graded complete test 1 submission for the candidate"
+        
+    }
+
+
+}

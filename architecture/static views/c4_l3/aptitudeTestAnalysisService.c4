@@ -1,0 +1,15 @@
+model {
+    extend aptitudeTestAnalysisService {
+        container aptitudeTestReporing {
+            description "Aptitude Test Reporting"
+        }
+        container aptitudeTestAnalysis {
+            description "Aptitude Test Analysis"
+        }
+        container aptitudeTestGradeDatabase {
+            style {
+                shape cylinder
+            }
+        }
+    }
+}

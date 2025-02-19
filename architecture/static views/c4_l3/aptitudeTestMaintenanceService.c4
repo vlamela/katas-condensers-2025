@@ -1,0 +1,50 @@
+model {
+
+    extend aptitudeTestMaintenanceService {
+
+        container aptitudeTestMaintenance {
+            description "Aptitude Test Maintenance"
+        }
+        container testDatabase {
+            style {
+                shape cylinder
+            }
+        }
+    }
+    
+    designatedExpert -> expertAdminUi.ui "adds, deletes or modifies aptitude test question or answer"
+    expertAdminUi.ui -> aptitudeTestMaintenanceService.aptitudeTestMaintenance "adds, removes or modifies aptitude test questions and answers"
+    aptitudeTestMaintenanceService.aptitudeTestMaintenance -> aptitudeTestMaintenanceService.testDatabase "stores aptitude test questions and answers"
+    aptitudeTestMaintenanceService.aptitudeTestMaintenance -> multimodalEmbeddingsPipeline.orchestrator "sends aptitude test question and answers" {
+        style {
+            color green
+        }
+    }
+}
+
+views {
+    
+    // Shared local styles
+    style element.kind != actor {
+        notation "C4 Containers - unchanged"
+    }
+    style multimodalEmbeddingsPipeline._ {
+        notation "C4 Containers - added for AI extension"
+        color green
+    }
+
+    view aptitudeTestMaintenanceContainer of aptitudeTestMaintenanceService {
+        title "Container view (C4 L2) of Aptitude Test Maintenance Service"
+
+        group "Actors" {
+            include designatedExpert
+        }
+        group "UI" {
+            include expertAdminUi._
+        }
+        group "Existing Containers" {
+            include aptitudeTestMaintenanceService.aptitudeTestMaintenance
+        }
+        include multimodalEmbeddingsPipeline._
+    }
+}
