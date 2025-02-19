@@ -33,7 +33,7 @@ model {
             color green
         }
     }
-    ragAutoGrader -> multimodalEmbeddingsPipeline "persists acepted submission" {
+    ragAutoGrader -> aptitudeTestAnalysisService "persists acepted submission" {
         style {
             color green
         }

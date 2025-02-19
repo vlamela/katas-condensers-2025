@@ -28,20 +28,26 @@ views {
             aptitudeTestTaker.questionSender -[async]-> ragAutoGrader.promptOrchestrator
         }
 
+        // Save the results of the grading
         parallel {
             aptitudeAutoGrader.multipleChoice -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
             aptitudeManualCapture.shortAnswer -> aptitudeManualCapture.ungradedDatabase
             ragAutoGrader.promptOrchestrator -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
         }
 
-        expert -> expertGradingUi.ui
+        ragAutoGrader.promptOrchestrator -> aptitudeManualGrader.gradeConsolidation
+
+        // Ask expert to accept or correct the AI grading
+        expert -> expertGradingUi.ui "processes AI graded short answers in waiting for acceptance status"
+        expertGradingUi.ui -> aptitudeManualGrader.gradeConsolidation "accepts or corrects aptitude test submission waiting for acceptance"
+
+        // Save the results of the expert grading
         expertGradingUi.ui -> aptitudeManualGrader.shortAnswer
         parallel {
             aptitudeManualGrader.shortAnswer -> aptitudeManualCapture.ungradedDatabase
             aptitudeManualGrader.shortAnswer -> aptitudeTestAnalysisService.aptitudeTestGradeDatabase
         }
-
-        aptitudeManualGrader.shortAnswer -> aptitudeManualGrader.gradeConsolidation
         
+        // Rest of the process unchanged
     }
 }

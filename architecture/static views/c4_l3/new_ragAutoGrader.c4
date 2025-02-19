@@ -62,5 +62,10 @@ model {
             color green
         }
     }
+    ragAutoGrader.promptOrchestrator -> aptitudeManualGrader.gradeConsolidation "marks submission as waiting for acceptance" {
+        style {
+            color green
+        }
+    }
 
 }
